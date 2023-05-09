@@ -1,7 +1,11 @@
+import {useState} from "react";
+import {useFoodDataMutate} from "../../../Hooks/useFoodDataMutate.ts";
+import {FoodData} from "../../../Interface/FoodData.tsx";
+
 interface InputProps {
     label: string;
     value: string | number;
-    updateValue: (value: string | number) => void;
+    updateValue: (value: any) => void;
 }
 const Input = ({label,value,updateValue}:InputProps) => {
     return (
@@ -13,16 +17,32 @@ const Input = ({label,value,updateValue}:InputProps) => {
 }
 
 export function CreateModal() {
+    const [title, setTitle] = useState('');
+    const [price, setPrice] = useState(0);
+    const [image, setImage] = useState('');
+    const {mutate} = useFoodDataMutate();
+
+    const submit = () => {
+        const foodData: FoodData = {
+            title,
+            price,
+            image
+        }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        mutate(foodData);
+    }
+
     return (
         <div className="modal-overlay">
             <div className="modal=body">
                 <h2>Adicionar novo item</h2>
                 <form className="input-container">
-                    <input type="text" placeholder="Nome do item"/>
-                    <input type="text" placeholder="Valor do item"/>
-                    <input type="text" placeholder="URL da imagem"/>
-                    <button type="submit">Adicionar</button>
+                    <Input label="title" value={title} updateValue={setTitle}></Input>
+                    <Input label="price" value={price} updateValue={setPrice}></Input>
+                    <Input label="image" value={image} updateValue={setImage}></Input>
                 </form>
+                <button onClick={submit} className="btn-secondary">Adicionar</button>
             </div>
         </div>
     )
