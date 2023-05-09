@@ -3,7 +3,6 @@ package com.example.api.Controller;
 import com.example.api.DTO.FoodRequestDTO;
 import com.example.api.DTO.FoodResponseDTO;
 import com.example.api.Services.FoodService;
-import com.example.api.model.Food;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,5 +25,11 @@ public class FoodController {
     @GetMapping("/")
     public List<FoodResponseDTO> ListAllFoods() {
         return foodService.ListAllFoods();
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        foodService.delete(id);
     }
 }

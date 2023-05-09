@@ -6,6 +6,7 @@ import com.example.api.Repository.FoodRepository;
 import com.example.api.model.Food;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -23,5 +24,9 @@ public class FoodService {
     }
     public List<FoodResponseDTO> ListAllFoods() {
         return foodRepository.findAll().stream().map(FoodResponseDTO::new).toList();
+    }
+
+    public void delete(@PathVariable Long id) {
+        foodRepository.deleteById(id);
     }
 }

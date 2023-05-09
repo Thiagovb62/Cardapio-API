@@ -1,17 +1,18 @@
 
 import './App.css'
 import {Card} from "./Components/Cards/card.tsx";
-import {FoodData} from "./Interface/FoodData.tsx";
+import {useFoodData} from "./Hooks/useFoodData.ts";
 
 function App() {
-    const data:FoodData[] = []
+    const {data} = useFoodData();
+
 
     return (
 
-    <div className="Container">
+    <div className="container">
         <h1>Cardapio</h1>
         <div className="card-grid">
-            {data.map(item =>
+            {data?.map(item =>
                 <Card
                     image={item.image}
                     price={item.price}
