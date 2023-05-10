@@ -2,11 +2,16 @@
 import './App.css'
 import {Card} from "./Components/Cards/card.tsx";
 import {useFoodData} from "./Hooks/useFoodData.ts";
+import  {useState} from "react";
+import {CreateModal} from "./Components/Cards/modal/create-model.tsx";
 
 function App() {
     const {data} = useFoodData();
+    const [isModelOpen, setIsModelOpen] = useState(false);
 
-
+    const handleOpenModal = () => {
+        setIsModelOpen(prev => !prev)
+    }
     return (
 
     <div className="container">
@@ -20,7 +25,8 @@ function App() {
                 />
             )}
         </div>
-
+        {isModelOpen && <CreateModal closeModal={handleOpenModal}/>}
+    <button onClick={handleOpenModal} >Adicionar</button>
     </div>
   )
 }

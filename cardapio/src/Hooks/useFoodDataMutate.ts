@@ -3,9 +3,9 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {FoodData} from "../Interface/FoodData.tsx";
 
 const API_URL = "http://localhost:8080";
-const postData = async ():AxiosPromise<FoodData[]> => {
-    const res = axios.post( API_URL + "/foods/save" )
-    return res;
+const postData = async (data: FoodData): AxiosPromise<any> => {
+    const response = axios.post(API_URL + '/foods/save', data);
+    return response;
 }
 export function useFoodDataMutate() {
     const queryClient = useQueryClient();
